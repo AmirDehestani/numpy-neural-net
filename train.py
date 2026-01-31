@@ -8,7 +8,7 @@ X, y, y_oh = load_mnist()
 nn = NeuralNetwork(
     layer_sizes=[784, 64, 10],
     hidden_activation=ActivationFunction.relu,
-    output_activation=ActivationFunction.softmax
+    output_activation=ActivationFunction.softmax,
 )
 
 losses = nn.train(X, y_oh, epochs=20, lr=5e-3)

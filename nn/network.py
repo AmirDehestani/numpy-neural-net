@@ -5,6 +5,14 @@ from nn.activations import ActivationFunction
 
 class NeuralNetwork:
     def __init__(self, layer_sizes, hidden_activation, output_activation):
+        """
+        Initializes the NeuralNetwork.
+
+        :param self: The instance of the NeuralNetwork.
+        :param layer_sizes: List of integers representing the number of neurons in each layer.
+        :param hidden_activation: Activation function for hidden layers.
+        :param output_activation: Activation function for the output layer.
+        """
         self.layers = []
 
         for i in range(1, len(layer_sizes)):
@@ -12,11 +20,24 @@ class NeuralNetwork:
             self.layers.append(Layer(layer_sizes[i - 1], layer_sizes[i], act))
 
     def forward(self, x):
+        """
+        Performs a forward pass through the network.
+
+        :param self: The instance of the NeuralNetwork.
+        :param x: Input data.
+        """
         for layer in self.layers:
             x = layer.forward(x)
         return x
 
     def backward(self, y, lr):
+        """
+        Performs a backward pass through the network and updates weights.
+
+        :param self: The instance of the NeuralNetwork.
+        :param y: True labels.
+        :param lr: Learning rate.
+        """
         delta = self.layers[-1].a - y
 
         for i in reversed(range(len(self.layers))):
@@ -35,6 +56,15 @@ class NeuralNetwork:
             layer.b -= lr * db
 
     def train(self, X, Y, epochs, lr):
+        """
+        Trains the neural network.
+
+        :param self: The instance of the NeuralNetwork.
+        :param X: Input data.
+        :param Y: True labels.
+        :param epochs: Number of training epochs.
+        :param lr: Learning rate.
+        """
         losses = []
 
         for epoch in range(epochs):
@@ -52,4 +82,10 @@ class NeuralNetwork:
         return losses
 
     def predict(self, X):
+        """
+        Makes predictions for the given input data.
+
+        :param self: The instance of the NeuralNetwork.
+        :param X: Input data.
+        """
         return np.array([self.forward(x) for x in X])

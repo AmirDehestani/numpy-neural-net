@@ -4,6 +4,11 @@ import numpy as np
 
 
 def load_mnist(n_samples=12000):
+    """
+    Load MNIST dataset and preprocess it.
+
+    :param n_samples: Number of samples to load from the dataset
+    """
     transform = transforms.ToTensor()
     dataset = datasets.MNIST(
         "./data/cache", train=True, download=True, transform=transform
